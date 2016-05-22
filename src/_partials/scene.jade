@@ -1,72 +1,238 @@
+//- Variables
+- var cabColor = '#0a0a0a';
+- var buttonsColor = '#d00';
+
+//- Mixins
+mixin button(x,z, animationOffset)
+  a-cylinder(color='#{buttonsColor}',height='.1',radius='.06',position='#{x} 0 #{z}')
+    a-animation(attribute='position',to='#{x} -.02 #{z}',repeat='indefinite',dur='200',begin='#{animationOffset}')
+
+//- Scene
 section.scene
-  a-scene(fog='type: linear; far: 10; color: #010104', vr-mode-ui='enabled: false')
+  a-scene(
+    fog='type: linear; far: 10; color: #010104',
+    vr-mode-ui='enabled: false'
+  )
     a-assets
-      img#grid(src='assets/grid.png')
-      img#marquee(src='assets/marquee.png')
-      img#lightning(src='assets/lightning.png')
-      img#mountains(src='assets/mountains.jpg')
-      img#logo(src='assets/logo.png')
-      img#date(src='assets/date.png')
-      video#pacman(autoplay='', loop='true', src='assets/pacman.webm')
-    a-entity(light='color: #fff; intensity: 1.5', position='2 4 2')
+      img#grid(
+        src='assets/grid.png'
+      )
+      img#marquee(
+        src='assets/marquee.png'
+      )
+      img#lightning(
+        src='assets/lightning.png'
+      )
+      img#mountains(
+        src='assets/mountains.jpg'
+      )
+      img#logo(
+        src='assets/logo.png'
+      )
+      img#date(
+        src='assets/date.png'
+      )
+      video#pacman(
+        autoplay='',
+        loop='true',
+        src='assets/pacman.webm'
+      )
+
+    a-entity(
+      light='color: #fff; intensity: 1.5',
+      position='2 4 2'
+    )
     // mountains
-    a-image(position='0 4 -4', rotation='0 0 0', geometry='width: 40; height: 7', src='#mountains')
+    a-image(
+      position='0 4 -4',
+      rotation='0 0 0',
+      geometry='width: 40; height: 7',
+      src='#mountains'
+    )
     // lightning
-    a-image(position='-1 3 -3', geometry='width: 9; height: 4', src='#lightning', transparent='true')
-    a-image(position='2 4 .1', rotation='0 0 90', scale='1.2 1.2 1.2', geometry='width: 9; height: 4', src='#lightning', transparent='true')
-    // Date
-    a-image(scale='.35 .35 .35', geometry='width: 6; height: 3', position='0 2.2 1', src='#date', transparent='true')
-      a-animation(attribute='position', from='0 -30 0', to='0 2.2 1', fill='both')
-    // Logo
-    a-image(rotation='-15 0 0', scale='.35 .35 .35', geometry='width: 4; height: 4', src='#logo', transparent='true')
-      a-animation(attribute='position', from='0 30 0', to='0 3.5 1.5', fill='both')
+    a-image(
+      position='-1 3 -3',
+      geometry='width: 9; height: 4',
+      src='#lightning',
+      opacity="1",
+      transparent='true'
+    )
+      a-animation(
+        begin='konami',
+        attribute='material.opacity',
+        to='0'
+      )
+    a-image(
+      position='2 4 .1',
+      rotation='0 0 90',
+      scale='1.2 1.2 1.2',
+      geometry='width: 9; height: 4',
+      src='#lightning',
+      opacity="1",
+      transparent='true'
+    )
+      a-animation(
+        begin='konami',
+        attribute='material.opacity',
+        to='0'
+      )
+    // date
+    a-image(
+      scale='.35 .35 .35',
+      geometry='width: 6; height: 3',
+      position='0 2.2 1',
+      src='#date',
+      transparent='true'
+    )
+      a-animation(
+        attribute='position',
+        from='0 -30 0',
+        to='0 2.2 1',
+        fill='both'
+      )
+    // logo
+    a-image(
+      rotation='-15 0 0',
+      scale='.35 .35 .35',
+      geometry='width: 4; height: 4',
+      src='#logo',
+      transparent='true'
+    )
+      a-animation(
+        attribute='position',
+        from='0 30 0',
+        to='0 3.5 1.5',
+        fill='both'
+      )
     // machine
-    a-entity.konami(position='.5 1 -.25', rotation='0 15 0', scale='.75 .75 .75')
-      a-animation(begin='konami', attribute='rotation' to='0 0 0')
-      a-animation(begin='konami', attribute='position', to='0 1 -.25')
+    a-entity.konami(
+      position='.5 1 -.25',
+      rotation='0 15 0',
+      scale='.75 .75 .75'
+    )
+      a-animation(
+        begin='konami',
+        attribute='rotation'
+        to='0 0 0'
+      )
+      a-animation(
+        begin='konami',
+        attribute='position',
+        to='0 .8 -.75'
+      )
       // base
-      a-box(width='2', height='3', depth='2.2', color='#111', position='0 0 .1')
+      a-entity(
+        geometry='primitive:box;width:2;height:3;depth:2.2',
+        material='shader:flat;color:#{cabColor}',
+        position='0 0 .1'
+      )
       // marquee
-      a-entity(position='0 2.95 -.12', rotation='-15 0 0')
-        a-box(width='2', height='.5', depth='1.5', color='#111')
-        a-entity(geometry='primitive: box; width: 1.9; height: .4; depth: .15', position='0 0 .7s', material='src: #marquee')
+      a-entity(
+        position='0 3.3 -.48',
+        rotation='-15 0 0'
+      )
+        a-entity(
+          geometry='primitive:box;width:2;height:.5;depth:1.2',
+          material='shader:flat;color:#{cabColor}'
+        )
+        a-entity(
+          geometry='primitive: box; width: 1.9; height: .4; depth: .05',
+          position='0 0 .6',
+          material='src: #marquee'
+        )
       // Back of monitor
-      a-box(position='0 2 -.5', width='2', height='2', depth='1', color='#111')
+      a-entity(
+        position='0 2 -.5',
+        geometry='primitive:box;width:2;height:2;depth:1;',
+        material='shader:flat;color:#{cabColor}'
+      )
       // monitor
-      a-box#monitor(position='0 2 0', rotation='-30 0 0', width='2', height='2', depth='1', color='#111')
+      a-entity#monitor(
+        position='0 2 0',
+        rotation='-30 0 0',
+        geometry='primitive:box;width:2;height:2.3;depth:1',
+        material='shader:flat;color:#{cabColor}'
+      )
       // screen
-      a-entity(position='0 2 .3', rotation='-30 0 0')
-        // <a-box color="#222" width="1.8" height="2" depth=".5"></a-box>
-        a-video(src='#pacman', width='1.7', height='1.4', position='0 0 .3')
+      a-entity(
+        position='0 2 .3',
+        rotation='-30 0 0'
+      )
+        a-video(
+          src='#pacman',
+          width='1.7',
+          height='1.4',
+          position='0 .4 .3'
+        )
+
       // controls
-      a-entity(position='0 1.5 .7')
-        a-box(width='2', height='.5', depth='1.2', color='#111')
+      a-entity(
+        position='0 1.5 .7'
+      )
+        a-entity(
+          geometry='primitive:box;width:2;height:.5;depth:1.2',
+          material='shader:flat;color:#{cabColor}'
+        )
         // joystick
-        a-entity(position='-.5 .25 .25')
-          a-animation(attribute='rotation', from='0 0 15', to='0 0 -15', repeat='indefinite', direction='alternate', dur='200')
-          a-cylinder(color='silver', height='.4', radius='.02')
-          a-sphere(color='#d00', radius='.06', position='0 .25 0')
+        a-entity(
+          position='-.5 .25 .25'
+        )
+          a-animation(
+            attribute='rotation',
+            from='0 0 10',
+            to='0 0 -10',
+            repeat='indefinite',
+            direction='alternate',
+            dur='200'
+          )
+          a-cylinder(
+            color='silver',
+            height='.3',
+            radius='.02'
+          )
+          a-sphere(
+            color='#{buttonsColor}',
+            radius='.06',
+            position='0 .15 0'
+          )
         // buttons
-        a-entity(position='.5 .25 .3', rotation='0 -5 0')
-          a-cylinder(color='#d00', height='.1', radius='.06', position='-.2 0 -.1')
-            a-animation(attribute='position', to='-.2 -.01 -.1', repeat='indefinite', dur='200')
-          a-cylinder(color='#d00', height='.1', radius='.06', position='-.2 0 .1')
-            a-animation(attribute='position', to='-.2 -.01 .1', begin='100', repeat='indefinite', dur='200')
-          a-cylinder(color='#d00', height='.1', radius='.06', position='0 0 -.1')
-            a-animation(attribute='position', to='0 -.01 -.1', begin='200', repeat='indefinite', dur='200')
-          a-cylinder(color='#d00', height='.1', radius='.06', position='0 0 .1')
-            a-animation(attribute='position', to='0 -.01 .1', begin='75', repeat='indefinite', dur='200')
-          a-cylinder(color='#d00', height='.1', radius='.06', position='.2 0 -.1')
-            a-animation(attribute='position', to='.2 -.01 -.1', begin='125', repeat='indefinite', dur='200')
-          a-cylinder(color='#d00', height='.1', radius='.06', position='.2 0 .1')
-            a-animation(attribute='position', to='.2 -.01 .1', begin='150', repeat='indefinite', dur='200')
+        a-entity(
+          position='.5 .25 .3',
+          rotation='0 -5 0'
+        )
+          +button(-.2, -.1, 0)
+          +button(0, -.1, 50)
+          +button(0, .1, 100)
+          +button(-.2, .1, 150)
+          +button(.2, -.1, 200)
+          +button(.2, .1, 250)
     // camera
-    a-entity.konami(position='0 3 2.8')
-      a-animation(begin='konami', attribute='position' to='0 2.8 1.1')
-      a-entity(camera='')
-        a-animation(attribute='position', from='0 0 10', to='0 0 0')
+    a-entity.konami(
+      position='0 3 2.8'
+    )
+      a-animation(
+        begin='konami',
+        attribute='position' to='0 2.8 1.1'
+      )
+      a-entity(
+        camera=''
+      )
+        a-animation(
+          attribute='position',
+          from='0 0 10',
+          to='0 0 0'
+        )
     // floor
-    a-entity(geometry='primitive: plane; width: 30; height: 15', rotation='-90 0 0', material='src: #grid')
+    a-entity(
+      geometry='primitive: plane; width: 30; height: 15',
+      rotation='-90 0 0',
+      material='src: #grid'
+    )
     // sky
-    a-sky(color='#010104')
-  script(src='aframe.min.js')
+    a-sky(
+      color='#010104'
+    )
+  //- Scripts
+  script(
+    src='aframe.min.js'
+  )
