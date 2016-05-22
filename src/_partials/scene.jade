@@ -21,7 +21,9 @@ section.scene
     a-image(rotation='-15 0 0', scale='.35 .35 .35', geometry='width: 4; height: 4', src='#logo', transparent='true')
       a-animation(attribute='position', from='0 30 0', to='0 3.5 1.5', fill='both')
     // machine
-    a-entity(position='.5 1 -.25', rotation='0 15 0', scale='.75 .75 .75')
+    a-entity.konami(position='.5 1 -.25', rotation='0 15 0', scale='.75 .75 .75')
+      a-animation(begin='konami', attribute='rotation' to='0 0 0')
+      a-animation(begin='konami', attribute='position', to='0 1 -.25')
       // base
       a-box(width='2', height='3', depth='2.2', color='#111', position='0 0 .1')
       // marquee
@@ -35,7 +37,7 @@ section.scene
       // screen
       a-entity(position='0 2 .3', rotation='-30 0 0')
         // <a-box color="#222" width="1.8" height="2" depth=".5"></a-box>
-        a-video(src='#pacman', width='1.8', height='1.4', position='-.05 0 .3')
+        a-video(src='#pacman', width='1.7', height='1.4', position='0 0 .3')
       // controls
       a-entity(position='0 1.5 .7')
         a-box(width='2', height='.5', depth='1.2', color='#111')
@@ -59,7 +61,8 @@ section.scene
           a-cylinder(color='#d00', height='.1', radius='.06', position='.2 0 .1')
             a-animation(attribute='position', to='.2 -.01 .1', begin='150', repeat='indefinite', dur='200')
     // camera
-    a-entity(position='0 3 2.8')
+    a-entity.konami(position='0 3 2.8')
+      a-animation(begin='konami', attribute='position' to='0 2.8 1.1')
       a-entity(camera='')
         a-animation(attribute='position', from='0 0 10', to='0 0 0')
     // floor
