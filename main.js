@@ -1,6 +1,22 @@
 (function() {
   'use strict';
-  cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
+  cheet('↑', function () {
     // Zoom to screen
     window.scrollTo(0, 0);
     var konami_elemnts = document.querySelectorAll('.konami');
